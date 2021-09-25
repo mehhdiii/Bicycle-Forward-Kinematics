@@ -1,0 +1,24 @@
+Ts = 0.1; 
+ITER = 1e3
+[x, y] = trajectory(0, 100, Ts); 
+vx  = gradient(x, Ts); vy = gradient(y, Ts);
+ax  = gradient(vx, Ts); ay = gradient(vy, Ts);
+phi = atan2(vy, vx); 
+
+delta_f = pi/2; 
+
+for n=1:ITER
+    J = [cos(delta_f)*cos(phi(n)) 0; 
+         cos(delta_f)*sin(phi(n)) 0;
+         0 1];
+    J_inv = pinv(J);
+    
+    X = [vx(n); vy(n); phi(n)];
+    B = J_inv*X; %chassis velocities
+    
+    
+
+end
+
+plot(x, y, 'linewidth', 3)
+
