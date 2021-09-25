@@ -1,4 +1,4 @@
-Ts = 0.01; 
+Ts = 0.1; 
 ITER = 1e3;
 t=linspace(-pi,pi,ITER); 
 x = 8*sin(t).^3; y = 8*sin((2*t)).^3;
@@ -9,7 +9,7 @@ phi = atan2(vy, vx);
 %resulting forward kinematic velocities
 x_f = zeros(1, ITER); y_f = zeros(1, ITER); 
 
-delta_f = 0; 
+delta_f = 0*pi/180; 
 
 for n=1:ITER-1
     J = [cos(delta_f)*cos(phi(n)) 0; 
@@ -22,12 +22,16 @@ for n=1:ITER-1
     
     %forward kinematic
     
-    x_f(n+1) = x_f(n) + Ts*B(1)*cos(phi(n)+ B(2)*Ts);
-    y_f(n+1) = y_f(n) + Ts*B(1)*sin(phi(n)+B(2)*Ts); 
+    
+    x_f(n+1) = x_f(n) + Ts*B(1)*cos(phi(n))*cos(delta_f);
+    y_f(n+1) = y_f(n) + Ts*B(1)*sin(phi(n))*cos(delta_f);
+    
+    
 
 
 end
 hold on 
 plot(x, y, 'linewidth', 2)
 plot(x_f, y_f, 'g-','linewidth', 4)
+legend('True Trajectory', "Bicycle's Trajectory")
 hold off
