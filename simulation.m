@@ -31,7 +31,10 @@ for n=1:ITER-1
 
 end
 hold on 
-plot(x, y, 'linewidth', 2)
-plot(x_f, y_f, 'g-','linewidth', 4)
+plot(x, y, 'linewidth', 6)
+plot(x_f, y_f, 'g-','linewidth', 2)
 legend('True Trajectory', "Bicycle's Trajectory")
+xlabel('X')
+ylabel('Y')
 hold off
+print('traj_figure', '-dpng')
