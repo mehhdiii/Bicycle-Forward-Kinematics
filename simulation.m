@@ -57,7 +57,7 @@ x_f = zeros(1, ITER); y_f = zeros(1, ITER);
 % steering angle delta f 
 delta_f = 2*cos(omega*t);
 plot(t,delta_f)
-figure;
+figure();
 %velocity-chassis angle
 beta = atan2(lr*tan(delta_f),d);
 
