@@ -45,7 +45,7 @@ print('traj_figure', '-dpng')
 %% Second approach
 clear all; close all; clc;
 
-Ts = 1; 
+Ts = 0.001; 
 ITER = 1e3;
 omega = 2*pi/10;
 v = 0.5; % bicycle velocity
