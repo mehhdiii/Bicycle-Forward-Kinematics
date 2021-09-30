@@ -1,3 +1,4 @@
+%% First approach
 Ts = 0.001; 
 ITER = 1e3;
 
@@ -41,10 +42,10 @@ ylabel('Y')
 hold off
 print('traj_figure', '-dpng')
 
-%% second approach
+%% Second approach
+clear all; close all; clc;
 
-clear all;clc;
-Ts = 0.01; 
+Ts = 1; 
 ITER = 1e3;
 omega = 2*pi/10;
 v = 0.5; % bicycle velocity
@@ -56,8 +57,8 @@ x_f = zeros(1, ITER); y_f = zeros(1, ITER);
 
 % steering angle delta f 
 delta_f = 2*cos(omega*t);
-plot(t,delta_f)
-figure();
+%plot(t,delta_f); figure();
+
 %velocity-chassis angle
 beta = atan2(lr*tan(delta_f),d);
 
@@ -65,19 +66,16 @@ beta = atan2(lr*tan(delta_f),d);
 phi = (1/d).*cos(beta).*tan(delta_f);
 
 for n=1:ITER-1
-    %x_f(n+1) = x_f(n) + Ts*v*cos(phi(n)+ beta(n)); 
-    %y_f(n+1) = y_f(n) + Ts*v*sin(phi(n)+ beta(n));
+    x_f(n+1) = x_f(n) + Ts*v*cos(phi(n)+ beta(n)); 
+    y_f(n+1) = y_f(n) + Ts*v*sin(phi(n)+ beta(n));
     
-    x_f(n+1) = x_f(n) + 0.5*(Ts*v*cos(phi(n)+beta(n)) + Ts*v*cos(phi(n)+beta(n)+Ts*omega)); %*cos(delta_f)
-    y_f(n+1) = y_f(n) + 0.5*(Ts*v*sin(phi(n)+beta(n)) + Ts*v*sin(phi(n)+beta(n)+Ts*omega));
+    %x_f(n+1) = x_f(n) + 0.5*(Ts*v*cos(phi(n)+beta(n)) + Ts*v*cos(phi(n)+beta(n)+Ts*omega)); %*cos(delta_f)
+    %y_f(n+1) = y_f(n) + 0.5*(Ts*v*sin(phi(n)+beta(n)) + Ts*v*sin(phi(n)+beta(n)+Ts*omega));
     
 end
 hold on 
 % plot(x, y, 'linewidth', 6)
 plot(x_f, y_f, 'g-','linewidth', 2)
-legend('True Trajectory', "Bicycle's Trajectory")
-xlabel('X')
-ylabel('Y')
+legend("Bicycle's Trajectory")
+xlabel('X'); ylabel('Y');
 hold off
-print('traj_figure', '-dpng')
-
